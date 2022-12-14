@@ -1,35 +1,36 @@
-import java.util.Scanner;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class task1 {
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите число n: ");
-        int n = scanner.nextInt();
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("name","Petr");
+        map.put("country","Russia");
+        map.put("city","Moskow");
+        map.put("age",null);
+        map.put("name1","Petr");
+        map.put("name2","Petrov");
 
-
-        String res_sum = Sum(n);
-        String res_mult = Mult(n);
-        System.out.println("Сумма = " + res_sum);
-        System.out.println("Произведение = " + res_mult);
+        System.out.println(getQuery(map));
     }
-    
 
-    public static String Sum(int value) {
-        int res_sum = 0;
-        for (int i = 1; i <= value; i++) {
-            res_sum += i;
+    public static String getQuery(Map<String, String> params) {
+        StringBuilder result = new StringBuilder();
+        if (params == null || params.isEmpty())
+            return result.toString();
+
+        for (Map.Entry<String, String> pair : params.entrySet()) {
+            if (pair.getKey() == null || pair.getValue() == null)
+                continue;
+
+            result.append(pair.getKey()).append(" = '").append(pair.getValue()).append("' and ");
         }
-        return String.valueOf(res_sum);
-    }
 
-    public static String Mult(int value) {
-        int res_mult = 1;
-        for (int i = 1; i <= value; i++) {
-            res_mult *= i;
-        }
-        return String.valueOf(res_mult);
+        if (result.length() > 5)
+            result.delete(result.length() - 5, result.length());
+
+        return result.toString();
     }
-    }
-    
+}
